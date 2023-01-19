@@ -20,7 +20,7 @@
 #ifdef QT_DEBUG
 #include "MockLink.h"
 #endif
-
+#include "MQTTLink.h"
 #define LINK_SETTING_ROOT "LinkConfigurations"
 
 LinkConfiguration::LinkConfiguration(const QString& name)
@@ -93,6 +93,10 @@ LinkConfiguration* LinkConfiguration::createSettings(int type, const QString& na
             config = new MockConfiguration(name);
             break;
 #endif
+       /** Kari Kolehmainen: MQTT Configuration **/
+        case LinkConfiguration::TypeMQTT:
+            config = new MQTTConfiguration(name);
+            break;
     }
     return config;
 }
@@ -129,6 +133,10 @@ LinkConfiguration* LinkConfiguration::duplicateSettings(LinkConfiguration* sourc
             dupe = new MockConfiguration(qobject_cast<MockConfiguration*>(source));
             break;
 #endif
+        /** Kari Kolehmainen: MQTT Configuration **/
+        case TypeMQTT:
+            dupe = new MQTTConfiguration(qobject_cast<MQTTConfiguration*>(source));
+            break;
         case TypeLast:
             break;
     }

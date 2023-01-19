@@ -438,6 +438,8 @@ HEADERS += \
     src/api/QGCSettings.h \
     src/api/QmlComponentInfo.h \
     src/GPS/Drivers/src/base_station.h \
+    src/comm/MQTTLink.h \
+    src/comm/MQTTLinkTCP.h
 
 contains (DEFINES, QGC_ENABLE_PAIRING) {
     HEADERS += \
@@ -745,6 +747,8 @@ HEADERS += \
     src/comm/QGCMAVLink.h \
     src/comm/TCPLink.h \
     src/comm/UDPLink.h \
+    src/comm/MQTTLink.h \
+    src/comm/MQTTLinkTCP.h \
     src/comm/UdpIODevice.h \
     src/uas/UAS.h \
     src/uas/UASInterface.h \
@@ -1000,6 +1004,7 @@ SOURCES += \
     src/comm/QGCMAVLink.cc \
     src/comm/TCPLink.cc \
     src/comm/UDPLink.cc \
+    src/comm/MQTTLink.cc \
     src/comm/UdpIODevice.cc \
     src/main.cc \
     src/uas/UAS.cc \

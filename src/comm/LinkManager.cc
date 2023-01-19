@@ -36,7 +36,7 @@
 #ifdef QT_DEBUG
 #include "MockLink.h"
 #endif
-
+#include "MQTTLink.h"
 #include <qmdnsengine/browser.h>
 #include <qmdnsengine/cache.h>
 #include <qmdnsengine/mdns.h>
@@ -138,6 +138,10 @@ bool LinkManager::createConnectedLink(SharedLinkConfigurationPtr& config, bool i
         link = std::make_shared<MockLink>(config);
         break;
 #endif
+    // Kari: Add MQTT Link to the connection links
+    case LinkConfiguration::TypeMQTT:
+        link = std::make_shared<MQTTLink>(config);
+        break;
     case LinkConfiguration::TypeLast:
         break;
     }
@@ -324,6 +328,10 @@ void LinkManager::loadLinkConfigurationList()
                                 link = new MockConfiguration(name);
                                 break;
 #endif
+                            // Kari: This section could be done better than switch statement
+                            case LinkConfiguration::TypeMQTT:
+                                link = new MQTTConfiguration(name);
+                                break;
                             case LinkConfiguration::TypeLast:
                                 break;
                             }
@@ -695,6 +703,8 @@ QStringList LinkManager::linkTypeStrings(void) const
 #ifndef __mobile__
         list += tr("Log Replay");
 #endif
+        // Kari: add MQTT option to list
+        list += tr("MQTT Broker");
         if (list.size() != static_cast<int>(LinkConfiguration::TypeLast)) {
             qWarning() << "Internal error";
         }
